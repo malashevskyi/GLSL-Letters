@@ -130,8 +130,6 @@ vec3 G(vec2 uv, float time, float fw) {
   float y = uv.y + sin(time + uv.x * 20.) * .01;
   float x2 = uv.x + sin(time + uv.y * 3.) * .04;
   float y2 = uv.y + sin(time + uv.x * 15.) * .01;
-  float edge = .1;
-  float edge2 = edge + .002;
 
   vec3 shape = color * S(.1 + fw, .1 - fw, length(vec2(x, y * .8)));
   shape -= S(.07 + fw, .07 - fw, length(vec2(x2, y2 * .7)));
@@ -139,6 +137,45 @@ vec3 G(vec2 uv, float time, float fw) {
   shape = clamp(shape, 0., 1.);
   shape -= Rect(vec2(x + .03, y + .012), vec2(.2, .08), fw);
   color = mix(color, lColor, clamp(shape, .0, 1.));
+  return color;
+}
+vec3 H(vec2 uv, float time, float fw) {
+  vec3 color = vec3(1.0);
+  float x = uv.x + sin(time + uv.y * 10.) * .04;
+  float y = uv.y + sin(time + uv.x * 40.) * .01;
+
+  vec3 shape = color * Rect(vec2(x + .1, y + .15), vec2(.04, .3), fw);
+  shape += Rect(vec2(x - .1, y + .15), vec2(.04, .3), fw);
+  shape += Rect(vec2(x + .075, y), vec2(.19, .04), fw);
+
+  color = mix(color, lColor, clamp(shape, 0., 1.));
+  return color;
+}
+vec3 I(vec2 uv, float time, float fw) {
+  vec3 color = vec3(1.);
+  float x = uv.x + sin(time + uv.y * 10.) * .04;
+  float y = uv.y + sin(time + uv.x * 40.) * .01;
+
+  vec3 shape = color * Rect(vec2(x, y + .15), vec2(.04, .3), fw);
+  shape += Rect(vec2(x + .04, y - .14), vec2(.12, .04), fw);
+  shape += Rect(vec2(x + .04, y + .15), vec2(.12, .04), fw);
+
+  color = mix(color, lColor, clamp(shape, 0., 1.));
+  return color;
+}
+vec3 J(vec2 uv, float time, float fw) {
+  vec3 color = vec3(1.);
+  float x = uv.x + sin(time + uv.y * 7.) * .04;
+  float y = uv.y + sin(time + uv.x * 20.) * .01;
+
+  vec3 shape = color * smoothstep(.102, .1, length(vec2(x, y * .5)));
+  shape -= smoothstep(.072, .07, length(vec2(x, y * .5)));
+  shape = clamp(shape, 0., 1.);
+  shape -= Rect(vec2(x + .1, y - .11), vec2(.3, .3), fw);
+  shape -= Rect(vec2(x + .2, y + .1), vec2(.2, .3), fw);
+  shape = clamp(shape, .0, 1.0);
+  shape += Rect(vec2(x - .02, y - .1), vec2(.1, .03), fw);
+  color = mix(color, lColor, clamp(shape, 0., 1.));
   return color;
 }
 void main() {
@@ -154,8 +191,8 @@ void main() {
 
   float time = u_time * .3;
 
-  float scale = 4.;
-  float sS = scale / 8.;
+  float scale = 5.;
+  float sS = scale / 11.;
   vec3 shape = vec3(1.);
 
   uv.y -= .5;
@@ -167,6 +204,9 @@ void main() {
   shape *= E(vec2(uv.x * scale, uv.y * scale + sS * 5.), time, fw);
   shape *= F(vec2(uv.x * scale, uv.y * scale + sS * 6.), time, fw);
   shape *= G(vec2(uv.x * scale, uv.y * scale + sS * 7.), time, fw);
+  shape *= H(vec2(uv.x * scale, uv.y * scale + sS * 8.), time, fw);
+  shape *= I(vec2(uv.x * scale, uv.y * scale + sS * 9.), time, fw);
+  shape *= J(vec2(uv.x * scale, uv.y * scale + sS * 10.), time, fw);
 
   color = mix(color, bgColor, shape);
 
