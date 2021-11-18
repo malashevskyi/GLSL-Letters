@@ -238,7 +238,7 @@ void main() {
 
   float time = u_time * .3;
 
-  float scale = 5.;
+  float scale = 7.;
   float sS = scale / 14.;
   vec3 shape = vec3(1.);
 
