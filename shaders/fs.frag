@@ -178,6 +178,53 @@ vec3 J(vec2 uv, float time, float fw) {
   color = mix(color, lColor, clamp(shape, 0., 1.));
   return color;
 }
+vec3 L(vec2 uv, float time, float fw) {
+  vec3 color = vec3(1.);
+  float x = uv.x + sin(time + uv.y * 10.) * .04;
+  float y = uv.y + sin(time + uv.x * 40.) * .01;
+  float edge = .1;
+  float edge2 = edge + .002;
+
+  vec3 shape = color * Rect(vec2(x + .1, y + .15), vec2(.04, .3), fw);
+  shape += Rect(vec2(x + .08, y + .15), vec2(.17, .04), fw);
+  color = mix(color, lColor, clamp(shape, 0., 1.));
+  return color;
+}
+vec3 K(vec2 uv, float time, float fw) {
+  vec3 color = vec3(1.);
+
+  float x = uv.x + sin(time + uv.y * 7.) * .04;
+  float y = uv.y + sin(time + uv.x * 20.) * .01;
+  float x2 = uv.x + sin(time + uv.y * 3.) * .04;
+  float y2 = uv.y + sin(time + uv.x * 15.) * .01;
+  float edge = .1;
+  float edge2 = edge + .002;
+
+  vec3 shape = color * Rect(vec2(x + .1, y + .15), vec2(.04, .3), fw);
+  shape += Rect(vec2(x + y + .07, y + .16), vec2(.04, .18), fw);
+  shape += Rect(vec2(x - y + .09, y + .01), vec2(.04, .15), fw);
+
+  color = mix(color, lColor, clamp(shape, 0., 1.));
+  return color;
+}
+vec3 M(vec2 uv, float time, float fw) {
+  vec3 color = vec3(1.);
+
+  float x = uv.x + sin(time + uv.y * 7.) * .04;
+  float y = uv.y + sin(time + uv.x * 20.) * .01;
+  float x2 = uv.x + sin(time + uv.y * 3.) * .04;
+  float y2 = uv.y + sin(time + uv.x * 15.) * .01;
+  float edge = .1;
+  float edge2 = edge + .002;
+
+  vec3 shape = color * Rect(vec2(x - y * .4 + .18, y + .15), vec2(.04, .3), fw);
+  shape += Rect(vec2(x + y * .4 + .06, y + .15), vec2(.04, .3), fw);
+  shape += Rect(vec2(x - y * .4 - .06, y + .15), vec2(.04, .3), fw);
+  shape += Rect(vec2(x + y * .4 - .18, y + .15), vec2(.04, .3), fw);
+
+  color = mix(color, lColor, clamp(shape, 0., 1.));
+  return color;
+}
 void main() {
 
   vec2 uv = gl_FragCoord.xy / u_resolution;
@@ -192,7 +239,7 @@ void main() {
   float time = u_time * .3;
 
   float scale = 5.;
-  float sS = scale / 11.;
+  float sS = scale / 14.;
   vec3 shape = vec3(1.);
 
   uv.y -= .5;
@@ -207,6 +254,9 @@ void main() {
   shape *= H(vec2(uv.x * scale, uv.y * scale + sS * 8.), time, fw);
   shape *= I(vec2(uv.x * scale, uv.y * scale + sS * 9.), time, fw);
   shape *= J(vec2(uv.x * scale, uv.y * scale + sS * 10.), time, fw);
+  shape *= K(vec2(uv.x * scale, uv.y * scale + sS * 11.), time, fw);
+  shape *= L(vec2(uv.x * scale, uv.y * scale + sS * 12.), time, fw);
+  shape *= M(vec2(uv.x * scale, uv.y * scale + sS * 13.), time, fw);
 
   color = mix(color, bgColor, shape);
 
