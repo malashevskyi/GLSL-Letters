@@ -3,7 +3,7 @@ body {
   overflow-x: hidden;
 }
 
-canvas {
+.canvas {
   display: block;
   width: 100vw;
   height: 5000px;
