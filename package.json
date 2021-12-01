@@ -1,6 +1,12 @@
 {
-  "name": "package",
+  "name": "GLSL Letters",
+  "description": "GLSL Letters animation",
   "version": "0.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Vitalii Malashevskyi",
+    "url": "https://github.com/malashevskyi/GLSL-Letters"
+  },
   "scripts": {
     "dev": "vite --port=3002",
     "build": "vite build",
@@ -9,5 +15,12 @@
   "devDependencies": {
     "vite": "^2.6.4",
     "vite-plugin-string": "^1.0.1"
-  }
+  },
+  "keywords": [
+    "canvas",
+    "animation",
+    "GLSL",
+    "letters",
+    "alphabet"
+  ]
 }
