@@ -375,6 +375,20 @@ vec3 W(vec2 uv, float time, float fw) {
   color = mix(color, lColor, clamp(shape, 0., 1.));
   return color;
 }
+vec3 X(vec2 uv, float time, float fw) {
+  vec3 color = vec3(1.);
+
+  uv *= 0.5;
+
+  float x = uv.x + sin(time + uv.y * 7.) * .04;
+  float y = uv.y + sin(time + uv.x * 20.) * .01;
+
+  vec3 shape = color * Rect(vec2(x - y * .8 - .06, y + .15), vec2(.04, .3), fw);
+  shape += Rect(vec2(x + y * .8 - .06, y + .15), vec2(.04, .3), fw);
+
+  color = mix(color, lColor, clamp(shape, 0., 1.));
+  return color;
+}
 void main() {
 
   vec2 uv = gl_FragCoord.xy / u_resolution;
@@ -417,6 +431,7 @@ void main() {
   shape *= U(vec2(uv.x * scale, uv.y * scale + sS * 21.), time, fw);
   shape *= V(vec2(uv.x * scale, uv.y * scale + sS * 23.), time, fw);
   shape *= W(vec2(uv.x * scale, uv.y * scale + sS * 25.), time, fw);
+  shape *= X(vec2(uv.x * scale, uv.y * scale + sS * 27.), time, fw);
 
   color = mix(color, bgColor, shape);
 
