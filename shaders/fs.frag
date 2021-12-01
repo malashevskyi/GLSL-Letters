@@ -298,8 +298,8 @@ void main() {
 
   float time = u_time * .3;
 
-  float scale = 7.;
-  float sS = scale / 19.;
+  float scale = 11.;
+  float sS = scale / 24.;
   vec3 shape = vec3(1.);
 
   uv.y -= .5;
