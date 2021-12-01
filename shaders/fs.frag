@@ -43,7 +43,6 @@ vec3 B(vec2 uv, float time, float fw) {
 
   float x = uv.x + sin(time + uv.y * 5.) * .025;
   float y = uv.y + sin(time) * .01;
-  float trslSin = sin(time) * .03;
 
   vec3 shapeO;
   shapeO = color * S(.08 - fw, .08 + fw, length(vec2(x * .7, y - 0.065)));
@@ -171,8 +170,8 @@ vec3 J(vec2 uv, float time, float fw) {
   float x = uv.x + sin(time + uv.y * 7.) * .04;
   float y = uv.y + sin(time + uv.x * 20.) * .01;
 
-  vec3 shape = color * smoothstep(.102, .1, length(vec2(x, y * .5)));
-  shape -= smoothstep(.072, .07, length(vec2(x, y * .5)));
+  vec3 shape = color * S(.102, .1, length(vec2(x, y * .5)));
+  shape -= S(.072, .07, length(vec2(x, y * .5)));
   shape = clamp(shape, 0., 1.);
   shape -= Rect(vec2(x + .1, y - .11), vec2(.3, .3), fw);
   shape -= Rect(vec2(x + .2, y + .1), vec2(.2, .3), fw);
@@ -186,8 +185,6 @@ vec3 L(vec2 uv, float time, float fw) {
   vec3 color = vec3(1.);
   float x = uv.x + sin(time + uv.y * 10.) * .04;
   float y = uv.y + sin(time + uv.x * 40.) * .01;
-  float edge = .1;
-  float edge2 = edge + .002;
 
   vec3 shape = color * Rect(vec2(x + .1, y + .15), vec2(.04, .3), fw);
   shape += Rect(vec2(x + .08, y + .15), vec2(.17, .04), fw);
@@ -200,10 +197,6 @@ vec3 K(vec2 uv, float time, float fw) {
 
   float x = uv.x + sin(time + uv.y * 7.) * .04;
   float y = uv.y + sin(time + uv.x * 20.) * .01;
-  float x2 = uv.x + sin(time + uv.y * 3.) * .04;
-  float y2 = uv.y + sin(time + uv.x * 15.) * .01;
-  float edge = .1;
-  float edge2 = edge + .002;
 
   vec3 shape = color * Rect(vec2(x + .1, y + .15), vec2(.04, .3), fw);
   shape += Rect(vec2(x + y + .07, y + .16), vec2(.04, .18), fw);
@@ -220,10 +213,6 @@ vec3 M(vec2 uv, float time, float fw) {
 
   float x = uv.x + sin(time + uv.y * 7.) * .04;
   float y = uv.y + sin(time + uv.x * 20.) * .01;
-  float x2 = uv.x + sin(time + uv.y * 3.) * .04;
-  float y2 = uv.y + sin(time + uv.x * 15.) * .01;
-  float edge = .1;
-  float edge2 = edge + .002;
 
   vec3 shape = color * Rect(vec2(x - y * .4 + .18, y + .15), vec2(.04, .3), fw);
   shape += Rect(vec2(x + y * .4 + .06, y + .15), vec2(.04, .3), fw);
@@ -266,8 +255,8 @@ vec3 P(vec2 uv, float time, float fw) {
   uv = vec2(uv.x - .3, uv.y - .3);
   vec3 color = vec3(1.);
 
-  float x = uv.x + sin(time + uv.y * 5.0) * 0.025;
-  float y = uv.y + sin(time) * 0.01;
+  float x = uv.x + sin(time + uv.y * 10.) * .025;
+  float y = uv.y + sin(time + uv.x * 10.) * .01;
 
   vec3 shape = color * S(.1 + fw, .1 - fw, length(vec2(x * .7, y - .065)));
   shape -= Rect(vec2(x + .25, y + .2), vec2(.2, .4), fw);
